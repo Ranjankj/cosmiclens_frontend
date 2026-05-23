@@ -1,11 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import { useRouter } from "next/navigation";
-
 import { motion, AnimatePresence } from "framer-motion";
-
 import CosmicBackground from "@/components/common/CosmicBackground";
 import GlowCard from "@/components/common/GlowCard";
 
@@ -65,10 +62,8 @@ export default function PersonalityPage() {
     if (currentIndex === questions.length - 1) {
       try {
         setLoading(true);
-
         await submitAnswers(updatedAnswers);
-
-        router.push("/chat");
+        router.push("/userHome");
       } catch (error) {
         console.error(error);
       } finally {

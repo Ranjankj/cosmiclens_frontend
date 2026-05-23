@@ -17,7 +17,7 @@ export default function PublicRoute({
 
   useEffect(() => {
     if (!loading && isAuthenticated) {
-      router.replace("/chat");
+      router.replace("/userHome");
     }
   }, [isAuthenticated, loading, router]);
 

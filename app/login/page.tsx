@@ -44,8 +44,7 @@ export default function LoginPage() {
 
       // update global auth state
       login(response.data.token);
-
-      router.replace("/chat");
+      router.replace("/userHome");
     } catch (error: any) {
       alert(error?.response?.data?.message || "Login failed");
     } finally {
