@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import { registerUser } from "@/services/auth.service";
 import PublicRoute from "@/components/common/PublicRoute";
 
+import Link from "next/link";
+
 export default function RegisterPage() {
   const router = useRouter();
 
@@ -95,6 +97,19 @@ export default function RegisterPage() {
               >
                 {loading ? "Creating Account..." : "Create Account"}
               </Button>
+            </div>
+            <div className="pt-2 text-center text-sm text-white/50">
+              Already have an account?{" "}
+              <Link
+                href="/login"
+                className="
+                    text-purple-300
+                    hover:text-purple-200
+                    transition
+                  "
+              >
+                Sign in
+              </Link>
             </div>
           </AuthCard>
         </div>

@@ -9,6 +9,7 @@ import GlowCard from "@/components/common/GlowCard";
 import { Button } from "@/components/ui/button";
 
 import { getQuestions, submitAnswers } from "@/services/personality.service";
+import { useAuth } from "@/providers/auth-provider";
 
 interface Question {
   id: number;
@@ -17,6 +18,7 @@ interface Question {
 
 export default function PersonalityPage() {
   const router = useRouter();
+  const { login } = useAuth();
 
   const [questions, setQuestions] = useState<Question[]>([]);
 
@@ -61,6 +63,7 @@ export default function PersonalityPage() {
     // last question
     if (currentIndex === questions.length - 1) {
       try {
+        login(localStorage.getItem("token") || "");
         setLoading(true);
         await submitAnswers(updatedAnswers);
         router.push("/userHome");
@@ -177,11 +180,55 @@ export default function PersonalityPage() {
         </AnimatePresence>
 
         {/* Loading */}
+        {/* FULLSCREEN LOADER */}
+        <AnimatePresence>
         {loading && (
-          <div className="mt-8 text-center text-white/60">
-            Analyzing your cosmic personality...
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="
+        fixed inset-0 z-50
+        bg-black/80
+        backdrop-blur-xl
+        flex items-center justify-center
+        px-6
+      "
+            >
+              <div className="text-center">
+                {/* Orb */}
+                <div className="mx-auto mb-8">
+                  <div className="relative w-24 h-24">
+                    <div className="absolute inset-0 rounded-full bg-fuchsia-500/30 blur-2xl animate-pulse" />
+
+                    <div
+                      className="
+                relative w-24 h-24 rounded-full
+                border border-fuchsia-500/30
+                bg-gradient-to-br
+                from-fuchsia-500/20
+                to-purple-500/20
+                backdrop-blur-xl
+                flex items-center justify-center
+              "
+                    >
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-fuchsia-400 to-purple-500 animate-pulse" />
+                    </div>
+                  </div>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl font-bold">
+                  Cosmira is analyzing your personality...
+                </h2>
+
+                <p className="mt-4 text-white/60 max-w-md leading-8">
+                  Understanding your emotional patterns, relationship
+                  tendencies, strengths, and cosmic personality traits.
+                </p>
           </div>
+            </motion.div>
         )}
+        </AnimatePresence>
       </div>
     </main>
   );
